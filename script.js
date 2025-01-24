@@ -1,3 +1,29 @@
+// войти
+document.getElementById("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const registrationForm = document.getElementById("registrationForm");
+    registrationForm.classList.remove("visible");
+    registrationForm.classList.add("hidden");
+
+    const mainContent = document.getElementById("mainContent");
+    mainContent.classList.remove("hidden");
+    mainContent.classList.add("visible");
+});
+
+// Выйти
+document.getElementById("logoutButton").addEventListener("click", function () {
+
+    const mainContent = document.getElementById("mainContent");
+    mainContent.classList.remove("visible");
+    mainContent.classList.add("hidden");
+
+    const registrationForm = document.getElementById("registrationForm");
+    registrationForm.classList.remove("hidden");
+    registrationForm.classList.add("visible");
+});
+
+
 const myLibrary = [];
 
 function Book(title, author, pages, isRead) {

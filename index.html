@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/animation.css">
+    <link rel="stylesheet" href="style.css">
     <title>Library</title>
 </head>
 <body>
-    <!-- UL-Floating Boxes Container -->
+    <!-- Форма регистрации -->
+    <div id="registrationForm" class="visible">
+        <h2>Войти в библиотеку</h2>
+        <form id="form">
+            <input type="text" id="username" placeholder="Имя пользователя" required><br><br>
+            <input type="password" id="password" placeholder="Пароль" required><br><br>
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+
+    
+
+    <!-- Основной контент -->
+    <div id="mainContent" class="hidden">
+
   <ul class="floating-boxes">
     <li></li>
     <li></li>
@@ -22,13 +35,11 @@
     <li></li>
   </ul>
 
-    <!-- Блок для библиотеки -->
-    <div class="container">
+    <div class="container" id="one">
         <h1>My Library</h1>
         <div class="book-list" id="bookList"></div>
     </div>
 
-    <!-- Блок для формы -->
     <div class="container">
         <h1>Add a Book</h1>
         <form id="bookForm" class="form">
@@ -39,6 +50,10 @@
             <button type="submit">Add Book</button>
         </form>
     </div>
-<script src="script.js"></script>
+    <h1 class="welcome">Welcome to the library!</h1>
+    <button id="logoutButton">Выйти</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
+
