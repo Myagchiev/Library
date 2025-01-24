@@ -26,7 +26,7 @@ function displayBooks() {
                 ${book.pages} pages - ${book.isRead ? 'Read' : 'Not Read'}
             </div>
             <div>
-                <button class="btn btn-toggle" onclick="toggleReadStatus(${index})">${book.isRead ? 'Mark as Unread' : 'Mark as Read'}</button>
+                <button class="btn btn-toggle" onclick="toggleReadStatus(${index})">${book.isRead ? 'Mark as Unread' : 'Mark as Read'}</button> 
                 <button class="btn btn-delete" onclick="removeBook(${index})">Delete</button>
             </div>
         `;
