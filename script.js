@@ -1,28 +1,21 @@
-// войти
+// форма войти
+
+function toggleVisibility(showElementId, hideElementId) {
+    document.getElementById(showElementId).classList.remove("hidden");
+    document.getElementById(hideElementId).classList.add("hidden");
+}
+
 document.getElementById("form").addEventListener("submit", function (event) {
     event.preventDefault();
-
-    const registrationForm = document.getElementById("registrationForm");
-    registrationForm.classList.remove("visible");
-    registrationForm.classList.add("hidden");
-
-    const mainContent = document.getElementById("mainContent");
-    mainContent.classList.remove("hidden");
-    mainContent.classList.add("visible");
+    toggleVisibility("mainContent", "registrationForm");
 });
 
-// Выйти
 document.getElementById("logoutButton").addEventListener("click", function () {
-
-    const mainContent = document.getElementById("mainContent");
-    mainContent.classList.remove("visible");
-    mainContent.classList.add("hidden");
-
-    const registrationForm = document.getElementById("registrationForm");
-    registrationForm.classList.remove("hidden");
-    registrationForm.classList.add("visible");
+    toggleVisibility("registrationForm", "mainContent");
 });
 
+
+// библиотека
 
 const myLibrary = [];
 
@@ -44,16 +37,16 @@ function displayBooks() {
 
     myLibrary.forEach((book, index) => {
         const bookDiv = document.createElement('div');
-        bookDiv.classList.add('book');
+        bookDiv.className = 'book';
+        bookDiv.dataset.index = index;
 
         bookDiv.innerHTML = `
-            <div>
-                <strong>${book.title}</strong> by ${book.author}<br>
-                ${book.pages} pages - ${book.isRead ? 'Read' : 'Not Read'}
+            <div class="book-info">
+                <strong>${book.title}</strong> by ${book.author} - ${book.pages} pages - ${book.isRead ? 'Read' : 'Not Read'}
             </div>
             <div>
-                <button class="btn btn-toggle" onclick="toggleReadStatus(${index})">${book.isRead ? 'Mark as Unread' : 'Mark as Read'}</button> 
-                <button class="btn btn-delete" onclick="removeBook(${index})">Delete</button>
+                <button class="btn btn-toggle" data-index="${index}">${book.isRead ? 'Mark as Unread' : 'Mark as Read'}</button>
+                <button class="btn btn-delete" data-index="${index}">Delete</button>
             </div>
         `;
 
@@ -61,9 +54,16 @@ function displayBooks() {
     });
 }
 
+function updateBookDisplay(index) {
+    const bookDiv = document.querySelector(`[data-index="${index}"]`);
+    const book = myLibrary[index];
+    bookDiv.querySelector('.btn-toggle').textContent = book.isRead ? 'Mark as Unread' : 'Mark as Read';
+    bookDiv.querySelector('.book-info').textContent = `${book.title} by ${book.author} - ${book.pages} pages - ${book.isRead ? 'Read' : 'Not Read'}`;
+}
+
 function toggleReadStatus(index) {
     myLibrary[index].isRead = !myLibrary[index].isRead;
-    displayBooks();
+    updateBookDisplay(index);
 }
 
 function removeBook(index) {
@@ -71,8 +71,17 @@ function removeBook(index) {
     displayBooks();
 }
 
-const bookForm = document.getElementById('bookForm');
-bookForm.addEventListener('submit', (e) => {
+document.getElementById('bookList').addEventListener('click', (e) => {
+    const index = e.target.dataset.index;
+    if (e.target.classList.contains('btn-toggle')) {
+        toggleReadStatus(index);
+    }
+    if (e.target.classList.contains('btn-delete')) {
+        removeBook(index);
+    }
+});
+
+document.getElementById('bookForm').addEventListener('submit', (e) => {
     e.preventDefault();
 
     const title = document.getElementById('title').value;
@@ -83,7 +92,7 @@ bookForm.addEventListener('submit', (e) => {
     const newBook = new Book(title, author, pages, isRead);
     addBookToLibrary(newBook);
 
-    bookForm.reset();
+    document.getElementById('bookForm').reset();
 });
 
 displayBooks();

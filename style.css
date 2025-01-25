@@ -13,12 +13,15 @@ html {
   
   .hidden {
     display: none;
-  }
-  
-  .visible {
-    display: block;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.5s ease;
-  }
+}
+
+.visible {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
   
   #registrationForm {
     position: absolute;
